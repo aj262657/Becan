@@ -714,6 +714,51 @@ ENTERPRISE_LIGHT_CSS = """
         fill: #FFFFFF !important;
         stroke: #FFFFFF !important;
     }
+
+    /* 1. Fix inspect and generic button text contrast */
+    div.stButton > button {
+        background-color: #0F172A !important;  /* Dark slate button */
+        color: #FFFFFF !important;             /* Crisp white text */
+        border: 1px solid #334155 !important;
+        font-weight: 600 !important;
+    }
+    div.stButton > button p,
+    div.stButton > button span {
+        color: #FFFFFF !important;             /* Force inner label to stay bright white */
+    }
+    div.stButton > button:hover {
+        background-color: #2563EB !important;  /* Blue hover */
+        color: #FFFFFF !important;
+        border-color: #3B82F6 !important;
+    }
+    div.stButton > button[kind="primary"],
+    div.stButton > button[data-testid="baseButton-primary"] {
+        background-color: #2563EB !important;
+        border-color: #3B82F6 !important;
+        color: #FFFFFF !important;
+    }
+    div.stButton > button[kind="primary"]:hover,
+    div.stButton > button[data-testid="baseButton-primary"]:hover {
+        background-color: #1D4ED8 !important;
+        border-color: #60A5FA !important;
+    }
+
+    /* 2. Fix tab bar and inactive tab labels */
+    button[data-baseweb="tab"] {
+        background-color: transparent !important;
+    }
+    button[data-baseweb="tab"] div,
+    button[data-baseweb="tab"] p,
+    button[data-baseweb="tab"] span {
+        color: #475569 !important;             /* Dark gray for inactive tabs so they are clearly readable */
+        font-weight: 600 !important;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] div,
+    button[data-baseweb="tab"][aria-selected="true"] p,
+    button[data-baseweb="tab"][aria-selected="true"] span {
+        color: #EF4444 !important;             /* Active tab accent color */
+        font-weight: 700 !important;
+    }
 </style>
 """
 st.markdown(ENTERPRISE_LIGHT_CSS, unsafe_allow_html=True)
