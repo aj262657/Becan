@@ -519,6 +519,42 @@ ENTERPRISE_LIGHT_CSS = """
         max-height: 220px;
         overflow-y: auto;
     }
+
+    /* Explicit Streamlit Metric Text Color Fix */
+    [data-testid="stMetric"] {
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 8px !important;
+        padding: 12px 16px !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-testid="stMetricLabel"] p {
+        color: #0F172A !important;
+        font-weight: 600 !important;
+        font-size: 0.95rem !important;
+    }
+
+    [data-testid="stMetricLabel"],
+    [data-testid="stMetricLabel"] div,
+    [data-testid="stMetricLabel"] span,
+    [data-testid="stMetricLabel"] label {
+        color: #0F172A !important;
+        font-weight: 600 !important;
+        font-size: 0.95rem !important;
+    }
+
+    [data-testid="stMetricValue"] div {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+    }
+
+    [data-testid="stMetricValue"],
+    [data-testid="stMetricValue"] span,
+    [data-testid="stMetricValue"] p {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+    }
 </style>
 """
 st.markdown(ENTERPRISE_LIGHT_CSS, unsafe_allow_html=True)
