@@ -14,13 +14,41 @@ from typing import Dict, Any, List
 import streamlit as st
 from PIL import Image
 
+# Anchor all relative paths to the folder containing app.py
+APP_DIR = Path(__file__).resolve().parent
+
+
+def resolve_asset_path(path_str):
+    if not path_str:
+        return None
+    if str(path_str).startswith("http://") or str(path_str).startswith("https://"):
+        return path_str
+
+    # Check relative to app.py directory
+    candidate_path = APP_DIR / path_str
+    if candidate_path.exists():
+        return str(candidate_path)
+
+    # Check directly by path_str
+    if os.path.exists(path_str):
+        return path_str
+
+    # Check inside APP_DIR / 'assets' / basename
+    fallback_assets = APP_DIR / "assets" / Path(path_str).name
+    if fallback_assets.exists():
+        return str(fallback_assets)
+
+    return None
+
+
 # Import modular detection engine
 import detection_engine as de
 
 # Setup page configuration
+_app_icon = resolve_asset_path("logo.png") or "logo.png"
 st.set_page_config(
     page_title="Becan",
-    page_icon="logo.png",
+    page_icon=_app_icon,
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -28,7 +56,9 @@ st.set_page_config(
 col_logo, col_title, col_status = st.columns([1, 6, 2])
 
 with col_logo:
-    st.image("logo.png", width=55)
+    _header_logo = resolve_asset_path("logo.png")
+    if _header_logo:
+        st.image(_header_logo, width=55)
 
 with col_title:
     st.markdown("""
@@ -498,8 +528,8 @@ st.markdown(ENTERPRISE_LIGHT_CSS, unsafe_allow_html=True)
 # Data Initialization and State Management
 # ==========================================
 
-DATA_FILE = Path(__file__).parent / "mock_data.json"
-ASSETS_DIR = Path(__file__).parent / "assets"
+DATA_FILE = APP_DIR / "mock_data.json"
+ASSETS_DIR = APP_DIR / "assets"
 
 def ensure_assets_exist():
     """Ensure authentic Revolut enterprise mock logo assets exist."""
@@ -561,8 +591,8 @@ def run_threat_evaluations():
         res = de.compute_composite_risk(
             entity=ent,
             official_brand=brand,
-            discovered_logo_path=ent.get("logo_path"),
-            official_logo_path=brand.get("logo_path")
+            discovered_logo_path=resolve_asset_path(ent.get("logo_path")),
+            official_logo_path=resolve_asset_path(brand.get("logo_path"))
         )
         ent_copy = dict(ent)
         ent_copy["risk_analysis"] = res
@@ -702,8 +732,9 @@ with st.sidebar:
 
     st.markdown("**Authorized Trademark Monogram**")
     logo_path = current_brand.get("logo_path", "")
-    if logo_path and Path(logo_path).exists():
-        st.image(logo_path, caption=f"Baseline: {brand_name}", width=110)
+    resolved_brand_logo = resolve_asset_path(logo_path)
+    if resolved_brand_logo:
+        st.image(resolved_brand_logo, caption=f"Baseline: {brand_name}", width=110)
     else:
         st.info("No baseline trademark visual set.")
 
@@ -1049,8 +1080,9 @@ with tab_feed:
             c_l_img, c_l_meta = st.columns([1, 2])
             with c_l_img:
                 off_logo_path = off_brand.get("logo_path", "assets/revolut_official_logo.png")
-                if off_logo_path and Path(off_logo_path).exists():
-                    st.image(off_logo_path, caption="Authorized Trademark", use_container_width=True)
+                resolved_off_logo = resolve_asset_path(off_logo_path)
+                if resolved_off_logo:
+                    st.image(resolved_off_logo, caption="Authorized Trademark", use_container_width=True)
                 else:
                     st.markdown("<div style='height: 80px; display: flex; align-items: center; justify-content: center; background: #F1F5F9; border-radius: 6px; color: #64748B; font-size: 0.78rem;'>Authorized visual missing</div>", unsafe_allow_html=True)
             with c_l_meta:
@@ -1078,8 +1110,9 @@ with tab_feed:
             c_r_img, c_r_meta = st.columns([1, 2])
             with c_r_img:
                 disc_logo = selected_ent.get("logo_path")
-                if disc_logo and Path(disc_logo).exists():
-                    st.image(disc_logo, caption="Discovered Asset Visual", use_container_width=True)
+                resolved_disc_logo = resolve_asset_path(disc_logo)
+                if resolved_disc_logo:
+                    st.image(resolved_disc_logo, caption="Discovered Asset Visual", use_container_width=True)
                 else:
                     st.info("No visual asset extracted")
 
