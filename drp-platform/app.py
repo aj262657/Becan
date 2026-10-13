@@ -509,15 +509,125 @@ ENTERPRISE_LIGHT_CSS = """
 
     /* Audit log terminal */
     .audit-terminal-light {
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
-        border-radius: 6px;
-        padding: 10px 14px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.76rem;
-        color: #475569;
-        max-height: 220px;
-        overflow-y: auto;
+        background: #F8FAFC !important;
+        border: 1px solid #CBD5E1 !important;
+        border-radius: 6px !important;
+        padding: 10px 14px !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.76rem !important;
+        color: #0F172A !important;
+        max-height: 220px !important;
+        overflow-y: auto !important;
+        line-height: 1.5 !important;
+    }
+    .audit-terminal-light * {
+        color: #0F172A !important;
+    }
+
+    /* Sidebar text, widget labels, headers, and helper text */
+    [data-testid="stSidebar"] * {
+        color: #0F172A !important;
+    }
+    [data-testid="stSidebar"] label {
+        color: #0F172A !important;
+        font-weight: 600 !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+        color: #0F172A !important;
+    }
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] h4,
+    [data-testid="stSidebar"] h5,
+    [data-testid="stSidebar"] h6 {
+        color: #0F172A !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stCaptionContainer"] p,
+    [data-testid="stSidebar"] .stCaption {
+        color: #475569 !important;
+    }
+
+    /* Expander text styling */
+    [data-testid="stExpander"] * {
+        color: #0F172A !important;
+    }
+    .streamlit-expanderHeader,
+    [data-testid="stExpander"] summary,
+    [data-testid="stExpander"] summary p,
+    [data-testid="stExpander"] summary span {
+        color: #0F172A !important;
+        font-weight: 600 !important;
+    }
+    [data-testid="stExpander"] summary svg {
+        color: #0F172A !important;
+        fill: #0F172A !important;
+        stroke: #0F172A !important;
+    }
+
+    /* Dark input boxes with readable light inner text */
+    [data-testid="stSidebar"] input, 
+    [data-testid="stSidebar"] textarea, 
+    [data-testid="stSidebar"] select,
+    [data-testid="stExpander"] input, 
+    [data-testid="stExpander"] textarea, 
+    [data-testid="stExpander"] select {
+        color: #FFFFFF !important;
+        background-color: #0F172A !important;
+        border: 1px solid #334155 !important;
+        border-radius: 6px !important;
+    }
+
+    [data-testid="stSidebar"] [data-baseweb="base-input"],
+    [data-testid="stSidebar"] [data-baseweb="input"],
+    [data-testid="stSidebar"] [data-baseweb="textarea"],
+    [data-testid="stExpander"] [data-baseweb="base-input"],
+    [data-testid="stExpander"] [data-baseweb="input"],
+    [data-testid="stExpander"] [data-baseweb="textarea"] {
+        background-color: #0F172A !important;
+        border: 1px solid #334155 !important;
+        border-radius: 6px !important;
+    }
+
+    [data-testid="stSidebar"] [data-baseweb="select"] > div,
+    [data-testid="stExpander"] [data-baseweb="select"] > div {
+        background-color: #0F172A !important;
+        border: 1px solid #334155 !important;
+        border-radius: 6px !important;
+    }
+    [data-testid="stSidebar"] [data-baseweb="select"] *,
+    [data-testid="stExpander"] [data-baseweb="select"] * {
+        color: #FFFFFF !important;
+    }
+    [data-testid="stSidebar"] [data-baseweb="select"] svg,
+    [data-testid="stExpander"] [data-baseweb="select"] svg {
+        fill: #FFFFFF !important;
+        stroke: #FFFFFF !important;
+    }
+
+    [data-testid="stSidebar"] input::placeholder, 
+    [data-testid="stSidebar"] textarea::placeholder,
+    [data-testid="stExpander"] input::placeholder, 
+    [data-testid="stExpander"] textarea::placeholder {
+        color: #94A3B8 !important;
+    }
+
+    /* Primary buttons contrast retention */
+    button[kind="primary"],
+    button[kind="primary"] *,
+    button[data-testid="baseButton-primary"],
+    button[data-testid="baseButton-primary"] * {
+        color: #FFFFFF !important;
+    }
+
+    /* Dropdown popover options readability */
+    div[data-baseweb="popover"] ul,
+    div[data-baseweb="menu"] {
+        background-color: #FFFFFF !important;
+    }
+    div[data-baseweb="popover"] li,
+    div[data-baseweb="menu"] li {
+        color: #0F172A !important;
     }
 
     /* Explicit Streamlit Metric Text Color Fix */
@@ -554,6 +664,55 @@ ENTERPRISE_LIGHT_CSS = """
     [data-testid="stMetricValue"] p {
         color: #0F172A !important;
         font-weight: 700 !important;
+    }
+
+    /* Text area readability (DMCA & STIX 2.1 bundles) */
+    [data-testid="stTextArea"] textarea {
+        color: #38BDF8 !important;              /* Neon cyan/blue for enterprise SOC look */
+        background-color: #0B1120 !important;   /* Deep terminal background */
+        font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+        font-size: 0.85rem !important;
+        border: 1px solid #1E293B !important;
+    }
+    [data-testid="stTextArea"] [data-baseweb="textarea"] {
+        background-color: #0B1120 !important;
+        border: 1px solid #1E293B !important;
+        border-radius: 6px !important;
+    }
+    [data-testid="stTextArea"] label,
+    [data-testid="stTextArea"] label p {
+        color: #0F172A !important;
+        font-weight: 600 !important;
+    }
+
+    /* Download buttons styling */
+    [data-testid="stDownloadButton"] button, 
+    div.stDownloadButton > button {
+        background-color: #2563EB !important;   /* Enterprise blue */
+        color: #FFFFFF !important;              /* Crisp white text */
+        border: 1px solid #3B82F6 !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
+        padding: 0.55rem 1rem !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+    [data-testid="stDownloadButton"] button:hover,
+    div.stDownloadButton > button:hover {
+        background-color: #1D4ED8 !important;
+        color: #FFFFFF !important;
+        border-color: #60A5FA !important;
+    }
+    [data-testid="stDownloadButton"] button p,
+    div.stDownloadButton > button p,
+    [data-testid="stDownloadButton"] button span,
+    div.stDownloadButton > button span,
+    [data-testid="stDownloadButton"] button div,
+    div.stDownloadButton > button div {
+        color: #FFFFFF !important;
+    }
+    [data-testid="stDownloadButton"] button svg {
+        fill: #FFFFFF !important;
+        stroke: #FFFFFF !important;
     }
 </style>
 """
